@@ -1,0 +1,14 @@
+version: '3'
+services:
+  frp_client:
+    build: ./services/frp
+    restart: always
+    volumes:
+      - ./frpc.ini:/etc/frp/frpc.ini:ro
+  # Web Server
+  web_server:
+    container_name: web_server
+    image: abiosoft/caddy
+  git_server:
+    container_name: git_server
+    image: gitlab/gitlab

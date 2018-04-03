@@ -1,0 +1,8 @@
+version: '3'
+services:
+  frp_server:
+    build: .
+    restart: always
+    volumes:
+      - ./frps.ini:/etc/frp/frps.ini:ro
+    network_mode: "host"
