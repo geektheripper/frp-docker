@@ -8,6 +8,9 @@ for file in $ini_files; do
   done < "$file">"/etc/frp-in-docker/$(basename $file)"
 done
 
+frps_config_source=/etc/frp/frps.ini
+frpc_config_source=/etc/frp/frpc.ini
+
 frps_config=/etc/frp-in-docker/frps.ini
 frpc_config=/etc/frp-in-docker/frpc.ini
 
@@ -27,12 +30,12 @@ case $FRP_MODE in
     ;;
   *)
     echo "\$FRP_MODE not set, run as existed config file"
-    if [ ! -f $frpc_config ] && [ ! -f $frps_config ]; then
+    if [ ! -f $frpc_config_source ] && [ ! -f $frps_config_source ]; then
       echo "Error: no config file"
       exit 1
     fi
-    [ -f $frpc_config ] && frpc -c $frpc_config
-    [ -f $frps_config ] && frps -c $frps_config
+    [ -f $frpc_config_source ] && frpc -c $frpc_config
+    [ -f $frps_config_source ] && frps -c $frps_config
     exit 0
     ;;
 esac
