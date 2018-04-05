@@ -1,8 +1,16 @@
 version: '3'
 services:
-  frp_server:
-    build: .
+  web_server:
+    image: nginx
+    container_name: web_server
+    expose:
+      - "80"
+      - "443"
+  frp_client:
+    image: geektr/frp
+    environment:
+      - FRP_SERVER_ADDR=your_server_address
+      - FRP_PRIVILEGE_TOKEN=your_serect_frp_privilege_token
     restart: always
     volumes:
-      - ./frps.ini:/etc/frp/frps.ini:ro
-    network_mode: "host"
+      - ./frpc.ini:/etc/frp/frpc.ini:ro

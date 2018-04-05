@@ -1,14 +1,12 @@
 version: '3'
 services:
-  frp_client:
-    build: ./services/frp
+  frp_server:
+    image: geektr/frp
+    environment:
+      - FRP_SERVER_ADDR=your_server_address
+      - FRP_PRIVILEGE_TOKEN=your_serect_frp_privilege_token
+      - FRP_DASHBOARD_PWD=your_frp_dashboard_password
     restart: always
+    network_mode: "host"
     volumes:
-      - ./frpc.ini:/etc/frp/frpc.ini:ro
-  # Web Server
-  web_server:
-    container_name: web_server
-    image: abiosoft/caddy
-  git_server:
-    container_name: git_server
-    image: gitlab/gitlab
+      - ./frps.ini:/etc/frp/frps.ini:ro
